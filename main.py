@@ -421,6 +421,7 @@ async def aide(ctx):
 
 # Petits jeux
 
+# Marche pas
 @client.command()
 async def pfc(ctx):
   select = Select(
@@ -469,6 +470,77 @@ async def pfc(ctx):
     else:
       await ctx.send("Egalité !")
   
+
+
+@client.command()
+async def pendu(ctx):
+    liste_mots = ["Banane", "Ordinateur", "Tigre", "Avion", "Piano", "Cascade", "Chocolat", "Fusee", "Montagne", "Etoile"]
+
+    while True:
+        mot_caché = random.choice(liste_mots).lower()
+        mot_caché_affichage = ["_" for _ in mot_caché]
+
+        embed_pendu_bienvenue = discord.Embed(
+            title="Le Pendu !",
+            description=f"Bienvenue dans le jeu du pendu !\nVous avez 8 essais pour trouver le mot caché! \n Bonne chance !",
+            color=0x00ffff
+        )
+        await ctx.send(embed=embed_pendu_bienvenue)
+
+        essais = 8
+        image = 1
+
+        while essais > 0:
+            mot_caché_affichage_str = " ".join(mot_caché_affichage)
+            
+            embed_pendu = discord.Embed(
+                title=f"Le Pendu ! - Essai n°{9 - essais}",
+                description=f"Vous avez {essais} essais pour trouver le mot caché\nLe mot caché est : ```{mot_caché_affichage_str}```",
+                color=0x00ffff
+            )
+            embed_pendu.set_image(url="https://st3.depositphotos.com/11514374/17116/v/380/depositphotos_171164736-stock-illustration-drawing-of-hang-knot-noose.jpg")
+            await ctx.send(embed=embed_pendu)
+            await ctx.send("Entrez une lettre")
+            
+            def check(m):
+                return m.author == ctx.author and m.channel == ctx.channel
+
+            lettre = (await client.wait_for("message", check=check)).content.lower()
+            
+            if lettre == "exit":
+                await ctx.send("Vous quittez le jeu du pendu", delete_after=5.0)
+                break 
+
+            if lettre in mot_caché:
+                await ctx.send("Bien joué !")
+                for i in range(len(mot_caché)):
+                    if mot_caché[i] == lettre:
+                        mot_caché_affichage[i] = lettre
+                await ctx.send(" ".join(mot_caché_affichage))
+                if "_" not in mot_caché_affichage:
+                    await ctx.send("Vous avez gagné !")
+                    break
+            else:
+                await ctx.send("Raté !")
+                essais -= 1
+                image += 1
+                await ctx.send(f"Il vous reste {essais} essais")
+                
+        if essais == 0:
+            await ctx.send(f"Vous avez perdu ! Le mot était : {mot_caché}")
+
+        await ctx.send("Voulez-vous rejouer ? (oui/non)")
+        rejouer = (await client.wait_for("message", check=check)).content.lower()
+        if rejouer == "non":
+            await ctx.send("Vous quittez le jeu du pendu, merci d'avoir joué", delete_after=5.0)
+            break
+        else:
+            await ctx.send("C'est reparti !")
+
+
+
+
+
       
     
 @client.command(name="sendhelp")

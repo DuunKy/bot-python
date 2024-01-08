@@ -28,7 +28,7 @@ Ce bot utilise une base de données SQLite pour stocker l'historique des command
 
 ## Arborescence de dossiers
 - `token_1.py`: Fichier contenant le jeton pour le bot.
-- `historique.db`: Base de données SQLite pour stocker les historiques.
+- `historique.db`: Base de données SQLite pour stocker les historiques et diverses choses afin de facilité ma gestion des données.
 - `commande_historique.py`: Script contenant des classes pour gérer l'historique des commandes et des messages.
 - `tree.py`: Script contenant la structure de données pour une conversation arborescente.
 
