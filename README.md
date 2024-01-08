@@ -1,4 +1,4 @@
-# Historique Discord
+# Bot Discord | Duncan Lhuillery
 
 ## Introduction
 Ce projet de bot Discord fait pour l'école, permettant d'avoir plusieurs fonctionalités communautaire.
