@@ -8,6 +8,7 @@ from discord.utils import get
 from discord.ui import Select
 import commande_historique
 import tree
+import	token_1
 
 client = commands.Bot(command_prefix="$", intents = intents)
 
@@ -627,4 +628,4 @@ async def on_message(message):
   await client.process_commands(message)
 
 
-client.run("MTE2NzM5NzA5MDAzMzQxNDE2NA.G3bWJl.nrd6QdcF44b_vzW6ttiGuy4LqzFTboVLQMjPj0")
+client.run(token_1.Token)
